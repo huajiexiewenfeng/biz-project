@@ -1,5 +1,6 @@
 package com.csdn.biz.api;
 
+import com.csdn.biz.api.enums.StatusCode;
 import java.util.Collections;
 import java.util.Map;
 import org.springframework.util.MultiValueMap;
@@ -13,23 +14,57 @@ import org.springframework.util.MultiValueMap;
  */
 public class ApiResponse<T> extends ApiBase<T> {
 
-  private String code;
+  private int code;
 
-  private String msg;
+  private String message;
 
-  public String getCode() {
+  public int getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(int code) {
     this.code = code;
   }
 
-  public String getMsg() {
-    return msg;
+  public String getMessage() {
+    return message;
   }
 
-  public void setMsg(String msg) {
-    this.msg = msg;
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public static <T> ApiResponse<T> ok(T body) {
+    return of(body, StatusCode.OK);
+  }
+
+  public static <T> ApiResponse<T> failed(T body) {
+    return of(body, StatusCode.FAILED);
+  }
+
+  public static <T> ApiResponse<T> failed(T body, String errorMessage) {
+    ApiResponse<T> response = of(body, StatusCode.FAILED);
+    response.setMessage(errorMessage);
+    return response;
+  }
+
+  public static <T> ApiResponse<T> of(T body, StatusCode statusCode) {
+    ApiResponse<T> response = new ApiResponse<T>();
+    response.setCode(statusCode.getCode());
+    response.setMessage(statusCode.getMessage());
+    response.setBody(body);
+    return response;
+  }
+
+  public static class Builder<T> {
+
+    private int code;
+
+    private String message;
+
+    public Builder<T> code(int code) {
+      this.code = code;
+      return this;
+    }
   }
 }
