@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author xiewenfeng
  */
-@FeignClient("${user-login.service.name}")
-@RequestMapping("/user")
+@FeignClient("${user-login.rest-service.name}")
+@RequestMapping("/api/user")
 @DubboService
 public interface UserRegistrationRestService {
 

@@ -30,6 +30,8 @@
     <spring-boot.version>2.7.4</spring-boot.version>
     <maven-flatten-plugin.version>1.2.5</maven-flatten-plugin.version>
     <dubbo.version>2.7.8</dubbo.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencyManagement>
