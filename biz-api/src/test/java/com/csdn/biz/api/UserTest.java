@@ -18,25 +18,16 @@ import java.util.Set;
  * @author ：xwf
  * @date ：Created in 2022\11\15 0015 23:09
  */
-public class UserTest {
+public class UserTest extends BaseTest {
 
-    @Test
-    public void test() {
-        GenericBootstrap bootstrap = Validation.byDefaultProvider();
-        Configuration<?> configuration = bootstrap.configure();
-
-        MessageInterpolator targetInterpolator = configuration.getDefaultMessageInterpolator();
-        configuration.messageInterpolator(new LocaleContextMessageInterpolator(targetInterpolator));
-
-        ValidatorFactory validatorFactory = configuration.buildValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
-
-        User user = new User();
-        user.setName("456");
-        user.setId(123L);
-        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
-        constraintViolations.forEach(constraintViolation -> {
-            System.out.println(constraintViolation.getMessage());
-        });
-    }
+  @Test
+  public void test() {
+    User user = new User();
+    user.setName("456");
+//    user.setId(123L);
+    Set<ConstraintViolation<User>> constraintViolations = validate(user);
+    constraintViolations.forEach(constraintViolation -> {
+      System.out.println(constraintViolation.getMessage());
+    });
+  }
 }

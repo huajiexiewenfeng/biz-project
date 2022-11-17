@@ -6,7 +6,9 @@ import com.csdn.biz.api.model.User;
 import java.util.Map;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -19,12 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @DubboService
 public interface UserRegistrationRestService {
 
-  @PostMapping("/login")
-  User login(Map<String, Object> context);
+  @PostMapping("/register/v1")
+  ApiResponse<Boolean> register(@RequestBody @Validated User user);
 
-  @PostMapping("/login/v1")
-  ApiResponse<Boolean> login(User user);
-
-  @PostMapping("/login/v2")
-  ApiResponse<Boolean> login(ApiRequest<User> userRequest);
+  @PostMapping("/register/v2")
+  ApiResponse<Boolean> register(@RequestBody @Validated ApiRequest<User> userRequest);
 }

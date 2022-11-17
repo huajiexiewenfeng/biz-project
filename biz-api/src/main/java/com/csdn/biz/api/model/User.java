@@ -1,5 +1,7 @@
 package com.csdn.biz.api.model;
 
+import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -10,13 +12,13 @@ import javax.validation.constraints.NotNull;
  * @date ：Created in 2022\11\13 0013 23:00
  */
 @Data
-public class User {
+public class User implements Serializable {
 
     @NotNull
     private Long id;
 
     @NotNull
-    @NotEmpty
+//    @NotBlank
     private String name;
 
     public User() {

@@ -30,6 +30,11 @@
       <artifactId>biz-core</artifactId>
       <version>${revision}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

@@ -2,6 +2,7 @@ package com.csdn.biz.api;
 
 import java.util.Collections;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.util.MultiValueMap;
 
 /**
@@ -12,8 +13,11 @@ public class ApiBase<T> {
 
   @Deprecated
   private Map<String, String> headers;
+
   @Deprecated
   private MultiValueMap<String, String> httpHeaders;
+
+  @Valid
   private T body;
 
   public Map<String, String> getHeaders() {

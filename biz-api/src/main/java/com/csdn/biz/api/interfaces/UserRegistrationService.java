@@ -2,9 +2,12 @@ package com.csdn.biz.api.interfaces;
 
 import com.csdn.biz.api.model.User;
 import java.util.Map;
+import javax.validation.Valid;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -17,6 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @DubboService
 public interface UserRegistrationService {
 
-  @PostMapping("/login")
-  User login(Map<String, Object> context);
+  @PostMapping(value = "/register/v3", produces = "application/json;v=3.0")
+  Boolean register(@RequestBody @Validated @Valid User user);
 }
