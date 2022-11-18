@@ -14,6 +14,9 @@ import org.springframework.util.MultiValueMap;
  */
 public class ApiResponse<T> extends ApiBase<T> {
 
+  public ApiResponse() {
+  }
+
   private int code;
 
   private String message;

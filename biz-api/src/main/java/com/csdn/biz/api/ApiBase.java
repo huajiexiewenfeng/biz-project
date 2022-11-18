@@ -14,8 +14,8 @@ public class ApiBase<T> {
   @Deprecated
   private Map<String, String> headers;
 
-  @Deprecated
-  private MultiValueMap<String, String> httpHeaders;
+//  @Deprecated
+//  private MultiValueMap<String, String> httpHeaders;
 
   @Valid
   private T body;
@@ -39,12 +39,12 @@ public class ApiBase<T> {
     this.body = body;
   }
 
-  public MultiValueMap<String, String> getHttpHeaders() {
-    return httpHeaders;
-  }
-
-  public void setHttpHeaders(
-      MultiValueMap<String, String> httpHeaders) {
-    this.httpHeaders = httpHeaders;
-  }
+//  public MultiValueMap<String, String> getHttpHeaders() {
+//    return httpHeaders;
+//  }
+//
+//  public void setHttpHeaders(
+//      MultiValueMap<String, String> httpHeaders) {
+//    this.httpHeaders = httpHeaders;
+//  }
 }
