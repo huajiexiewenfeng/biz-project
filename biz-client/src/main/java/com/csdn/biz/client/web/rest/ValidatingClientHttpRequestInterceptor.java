@@ -1,4 +1,4 @@
-package com.csdn.biz.web.client;
+package com.csdn.biz.client.web.rest;
 
 import com.csdn.biz.api.ApiResponse;
 import com.csdn.biz.api.model.User;
