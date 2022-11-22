@@ -6,6 +6,7 @@ import com.csdn.biz.api.model.User;
 import java.util.Map;
 import javax.validation.Valid;
 
+import com.csdn.biz.api.openfeign.UserServiceFeignConfiguration;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author xiewenfeng
  */
-@FeignClient(value = "${user-registration.service.name:user-service}",path = "/user")
+@FeignClient(value = "${user-registration.service.name:user-service}", path = "/user", configuration = UserServiceFeignConfiguration.class)
 @DubboService
 public interface UserRegistrationService {
 

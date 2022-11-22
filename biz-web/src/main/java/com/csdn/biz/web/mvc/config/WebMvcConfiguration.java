@@ -32,9 +32,9 @@ public class WebMvcConfiguration {
     requestMappingHandlerAdapter.setReturnValueHandlers(newReturnValueHandlers);
   }
 
-  @Bean
-  public RestTemplate restTemplate(){
-    return new RestTemplate();
-  }
+//  @Bean
+//  public RestTemplate restTemplate(){
+//    return new RestTemplate();
+//  }
 
 }

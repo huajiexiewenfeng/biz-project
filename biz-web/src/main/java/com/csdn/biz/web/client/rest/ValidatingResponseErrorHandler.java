@@ -1,4 +1,4 @@
-package com.csdn.biz.client.web.rest;
+package com.csdn.biz.web.client.rest;
 
 /**
  * @author ：xwf

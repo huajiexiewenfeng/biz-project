@@ -1,7 +1,6 @@
-package com.csdn.biz.client.web.rest;
+package com.csdn.biz.web.client.rest;
 
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -9,23 +8,26 @@ import org.springframework.http.client.ClientHttpResponse;
 
 import java.io.IOException;
 
-import static com.csdn.biz.client.web.rest.ValidatingClientHttpRequestInterceptor.VALIDATION_HEADER_NAME;
-
 /**
- * 请求前置错误处理
+ * 重试
  *
  * @author ：xwf
  * @date ：Created in 2022\11\19 0019 19:17
  */
-public class ErrorClientHttpRequestInterceptor implements ClientHttpRequestInterceptor, Ordered {
+public class RetryClientHttpRequestInterceptor implements ClientHttpRequestInterceptor, Ordered {
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        HttpHeaders headers = request.getHeaders();
-        String valid = headers.getFirst(VALIDATION_HEADER_NAME);
-        if (!"true".equals(valid)) {
-            // TODO 异常处理
+        ClientHttpResponse response = null;
+        try {
+            response = execution.execute(request, body);
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                // TODO retry ... feign.SynchronousMethodHandler.invoke
+            }
+        } catch (Exception e) {
+            // TODO retry ...
+
         }
-        return execution.execute(request, body);
+        return response;
     }
 
     /**

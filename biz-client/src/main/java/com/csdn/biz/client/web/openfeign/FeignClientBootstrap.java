@@ -1,26 +1,21 @@
 package com.csdn.biz.client.web.openfeign;
 
-import com.csdn.biz.api.interfaces.UserRegistrationRestService;
 import com.csdn.biz.api.interfaces.UserRegistrationService;
 import com.csdn.biz.api.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.csdn.biz.client.web.loadbalancer.LoadBalancerConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.openfeign.*;
+import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * @author ：xwf
+ * @author liy：xwf
  * @date ：Created in 2022\11\21 0021 21:29
  */
 @EnableFeignClients(clients = {UserRegistrationService.class})
 @EnableAutoConfiguration
+@LoadBalancerClient(name = "user-service", configuration = LoadBalancerConfiguration.class)
 public class FeignClientBootstrap {
 
     public static void main(String[] args) {

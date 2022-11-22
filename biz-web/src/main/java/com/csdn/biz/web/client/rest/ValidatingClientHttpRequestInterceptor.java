@@ -1,6 +1,5 @@
-package com.csdn.biz.client.web.rest;
+package com.csdn.biz.web.client.rest;
 
-import com.csdn.biz.api.ApiResponse;
 import com.csdn.biz.api.model.User;
 
 import java.io.ByteArrayInputStream;
@@ -8,7 +7,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
-import javax.validation.ValidationException;
 import javax.validation.Validator;
 
 import org.springframework.core.Ordered;
@@ -24,7 +22,6 @@ import org.springframework.http.converter.json.MappingJacksonInputMessage;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Bean Validation 校验 {@link ClientHttpRequestInterceptor} 实现
