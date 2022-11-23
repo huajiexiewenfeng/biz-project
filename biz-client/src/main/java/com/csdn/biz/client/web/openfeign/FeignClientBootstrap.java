@@ -21,7 +21,7 @@ public class FeignClientBootstrap {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(FeignClientBootstrap.class).build().run(args);
         UserRegistrationService bean = context.getBean(UserRegistrationService.class);
-        Object result = bean.register(new User(1L, "123"));
+        Boolean result = bean.register(new User(1L, "123"));
         System.out.println(result);
 
     }

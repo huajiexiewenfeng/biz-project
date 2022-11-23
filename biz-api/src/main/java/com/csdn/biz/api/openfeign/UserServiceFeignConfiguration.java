@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author ：xwf
@@ -27,9 +28,9 @@ public class UserServiceFeignConfiguration {
     private ObjectFactory<HttpMessageConverters> messageConverters;
 
     @Bean
-    @ConditionalOnBean
+    @Primary
     public Decoder decoder() {
-        return new ApiRespons@zhgeeDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters)));
+        return new ApiResponseDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters)));
     }
 
 }

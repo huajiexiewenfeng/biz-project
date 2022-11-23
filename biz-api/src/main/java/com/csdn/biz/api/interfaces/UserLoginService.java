@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author xiewenfeng
  */
 @FeignClient("${user-login.service.name}")
-@RequestMapping("/user")
 @DubboService
 public interface UserLoginService {
 
-  @PostMapping("/login")
+  @PostMapping(value = "/user/login")
   User login(Map<String, Object> context);
 }

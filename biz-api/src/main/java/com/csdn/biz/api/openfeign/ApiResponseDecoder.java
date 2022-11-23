@@ -10,6 +10,10 @@ import org.springframework.cloud.openfeign.support.SpringDecoder;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.springframework.http.MediaType;
 
 /**
  * @author ：xwf
@@ -26,11 +30,21 @@ public class ApiResponseDecoder implements Decoder {
 
     @Override
     public Object decode(Response response, Type type) throws IOException, DecodeException, FeignException {
-        Object object = decoder.decode(response, type);
-        if (object instanceof ApiResponse) {
-            ApiResponse responseObj = (ApiResponse) object;
-            return responseObj.getBody();
+        String contextType = getContextType(response);
+        MediaType mediaType = MediaType.parseMediaType(contextType);
+        String version = mediaType.getParameter("v");
+        Object object = decoder.decode(response, ApiResponse.class);
+        if ("3".equals(version)) {
+            if (object instanceof ApiResponse) {
+                ApiResponse responseObj = (ApiResponse) object;
+                return responseObj.getBody();
+            }
         }
         return object;
+    }
+
+    private String getContextType(Response response) {
+        Collection<String> types = response.headers().getOrDefault("Content-Type", Arrays.asList("application/json;v=3"));
+        return types.iterator().next();
     }
 }

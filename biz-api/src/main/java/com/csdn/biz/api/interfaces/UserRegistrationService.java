@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author xiewenfeng
  */
-@FeignClient(value = "${user-registration.service.name:user-service}", path = "/user", configuration = UserServiceFeignConfiguration.class)
+@FeignClient(value = "${user-registration.service.name:user-service}", configuration = UserServiceFeignConfiguration.class)
 @DubboService
 public interface UserRegistrationService {
 
-    @PostMapping(value = "/register/v3", produces = "application/json;v=3.0")
-    Object register(@RequestBody @Validated @Valid User user) throws UserException;
+    @PostMapping(value = "/user/register", produces = "application/json;v=3.0")
+    Boolean register(@RequestBody @Validated @Valid User user) throws UserException;
 }
