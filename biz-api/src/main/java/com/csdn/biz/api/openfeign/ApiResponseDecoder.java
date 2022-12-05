@@ -33,14 +33,15 @@ public class ApiResponseDecoder implements Decoder {
         String contextType = getContextType(response);
         MediaType mediaType = MediaType.parseMediaType(contextType);
         String version = mediaType.getParameter("v");
-        Object object = decoder.decode(response, ApiResponse.class);
-        if ("3".equals(version)) {
+        if (null == version) {
+            Object object = decoder.decode(response, ApiResponse.class);
             if (object instanceof ApiResponse) {
                 ApiResponse responseObj = (ApiResponse) object;
                 return responseObj.getBody();
             }
         }
-        return object;
+        return decoder.decode(response, type);
+
     }
 
     private String getContextType(Response response) {

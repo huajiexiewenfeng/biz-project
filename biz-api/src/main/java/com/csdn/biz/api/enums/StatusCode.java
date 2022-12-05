@@ -10,31 +10,36 @@ import org.springframework.http.HttpStatus;
  * @see HttpStatus
  */
 public enum StatusCode {
-  OK(0, "OK"),
-  FAILED(-1, "Failed"),
-  CONTINUE(1, "{status-code.continue}");
+    OK(0, "OK") {
+        @Override
+        public String getMessage() {
+            return super.message;
+        }
+    },
+    FAILED(-1, "Failed"),
+    CONTINUE(1, "{status-code.continue}");
 
-  private int code;
+    private int code;
 
-  private String message;
+    private String message;
 
-  StatusCode(int code, String message) {
-    this.code = code;
-    this.message = message;
-  }
+    StatusCode(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
-  public int getCode() {
-    return code;
-  }
+    public int getCode() {
+        return code;
+    }
 
-  public String getMessage() {
-    return getLocalizedMessage();
-  }
+    public String getMessage() {
+        return getLocalizedMessage();
+    }
 
-  public String getLocalizedMessage() {
-    // FIXME 增加国际化支持
-    // 如果 message 是占位符，翻译成档案的 message text
-    // 否则直接返回
-    return message;
-  }
+    public String getLocalizedMessage() {
+        // FIXME 增加国际化支持
+        // 如果 message 是占位符，翻译成档案的 message text
+        // 否则直接返回
+        return message;
+    }
 }

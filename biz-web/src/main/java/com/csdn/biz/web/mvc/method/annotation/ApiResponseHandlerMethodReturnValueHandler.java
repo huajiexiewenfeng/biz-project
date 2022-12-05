@@ -1,7 +1,9 @@
 package com.csdn.biz.web.mvc.method.annotation;
 
 import com.csdn.biz.api.ApiResponse;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpOutputMessage;
@@ -24,35 +26,38 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
  */
 public class ApiResponseHandlerMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
 
-  private MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+    private MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 
-  @Override
-  public boolean supportsReturnType(MethodParameter returnType) {
-    return (AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBody.class)
-        ||
-        returnType.hasMethodAnnotation(ResponseBody.class))
-        && !ApiResponse.class.equals(returnType.getParameterType());
-  }
+    @Override
+    public boolean supportsReturnType(MethodParameter returnType) {
+        return (AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBody.class)
+                ||
+                returnType.hasMethodAnnotation(ResponseBody.class))
+                && !ApiResponse.class.equals(returnType.getParameterType());
+    }
 
-  @Override
-  public void handleReturnValue(Object returnValue, MethodParameter returnType,
-      ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
-    mavContainer.setRequestHandled(true);
-    ApiResponse apiResponse = ApiResponse.ok(returnValue);
-    ServletServerHttpResponse outputMessage = createOutputMessage(webRequest);
-    converter.write(apiResponse, MediaType.APPLICATION_JSON, outputMessage);
-  }
+    @Override
+    public void handleReturnValue(Object returnValue, MethodParameter returnType,
+                                  ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
+        // TODO 可通过客户端传递请求头来切换不同响应体的内容
+        mavContainer.setRequestHandled(true);
+        ApiResponse apiResponse = ApiResponse.ok(returnValue);
+        ServletServerHttpResponse outputMessage = createOutputMessage(webRequest);
+        HttpServletResponse nativeResponse = (HttpServletResponse) webRequest.getNativeResponse();
+        nativeResponse.addHeader("v", "3");
+        converter.write(apiResponse, MediaType.APPLICATION_JSON, outputMessage);
+    }
 
-  /**
-   * Creates a new {@link HttpOutputMessage} from the given {@link NativeWebRequest}.
-   *
-   * @param webRequest the web request to create an output message from
-   * @return the output message
-   */
-  protected ServletServerHttpResponse createOutputMessage(NativeWebRequest webRequest) {
-    HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
-    Assert.state(response != null, "No HttpServletResponse");
-    return new ServletServerHttpResponse(response);
-  }
+    /**
+     * Creates a new {@link HttpOutputMessage} from the given {@link NativeWebRequest}.
+     *
+     * @param webRequest the web request to create an output message from
+     * @return the output message
+     */
+    protected ServletServerHttpResponse createOutputMessage(NativeWebRequest webRequest) {
+        HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
+        Assert.state(response != null, "No HttpServletResponse");
+        return new ServletServerHttpResponse(response);
+    }
 
 }
