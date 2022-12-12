@@ -32,6 +32,7 @@
         <spring-boot.version>2.7.4</spring-boot.version>
         <maven-flatten-plugin.version>1.2.5</maven-flatten-plugin.version>
         <dubbo.version>2.7.8</dubbo.version>
+        <resilience4j.version>1.7.0</resilience4j.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -63,6 +64,17 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-framework-common</artifactId>
+                <version>${resilience4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-spring-boot2</artifactId>
+                <version>${resilience4j.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
