@@ -36,7 +36,6 @@ public class ResourceBulkheadHandlerInterceptor implements HandlerInterceptor, I
     @Deprecated
     private Map<String, Bulkhead> bulkheadsCache;
 
-    @Deprecated
     private Map<Method, Bulkhead> methodBulkheadsCache;
 
     private BulkheadConfig config;

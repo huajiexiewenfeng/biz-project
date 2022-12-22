@@ -1,5 +1,6 @@
 package com.csdn.biz.api.openfeign;
 
+import com.csdn.biz.api.fault.tolerance.openfeign.BulkheadRequestInterceptor;
 import feign.codec.Decoder;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -31,6 +32,11 @@ public class UserServiceFeignConfiguration {
     @Primary
     public Decoder decoder() {
         return new ApiResponseDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters)));
+    }
+
+    @Bean
+    public BulkheadRequestInterceptor bulkheadRequestInterceptor(){
+        return new BulkheadRequestInterceptor();
     }
 
 }
